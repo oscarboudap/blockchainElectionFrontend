@@ -21,9 +21,8 @@ yarn-error.log*
 # IDE-specific files
 .idea/
 
-# Optional npm package lock files
+# Ignore package-lock.json (if using npm or yarn)
 package-lock.json
-yarn.lock
 
 # Jest test coverage
 /coverage/
