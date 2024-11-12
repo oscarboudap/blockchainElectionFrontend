@@ -1,46 +1,60 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+3. Setting up the Frontend (React + TypeScript)
+Frontend (React)
+Install Dependencies:
 
-## Available Scripts
+Navigate to the frontend directory and install dependencies:
+cd frontend
+npm install
 
-In the project directory, you can run:
+Run the Frontend Locally:
 
-### `npm start`
+To run the frontend locally:
+npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Dockerize the Frontend:
+docker build -t voting_frontend .
+docker run -p 3000:3000 voting_frontend
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+4. Setting up the Blockchain (Substrate)
+To interact with the blockchain, you can use Ganache or any Substrate node locally. For Ganache:
 
-### `npm test`
+Install Ganache CLI:
+npm install -g ganache-cli
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Start the Blockchain:
 
-### `npm run build`
+Run Ganache CLI:
+ganache-cli
+This will start a local blockchain instance on http://localhost:8545.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Deploy Contracts Using Truffle:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the voting_backend folder, deploy the smart contracts:
+truffle migrate --network development
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+5. Running the Full Application
+Start the Backend:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Either run the backend locally using cargo run or build and run the Docker container as described above.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Start the Frontend:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Either run the frontend locally using npm start or build and run the Docker container.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Interact with the Application:
 
-## Learn More
+Open the React app in your browser: http://localhost:3000
+You should be able to select a candidate and cast your vote.
+View Results:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To see the results, you can use the "Results" section of the frontend or make a GET request to http://localhost:8080/results to view all votes.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+6. Database Configuration (Optional)
+If you're using a database (e.g., MongoDB), ensure that you have the database running locally or in a container. Update your backend configuration in config.rs to connect to the database.
+
+Troubleshooting
+Ports Conflict: If you see a "port already in use" error, ensure no other service is running on port 8080 or 3000 and stop conflicting services.
+Missing Modules: If you encounter missing module errors (e.g., dotenv or axios), install them using npm install or cargo install as needed.
+CORS Issues: If the frontend cannot access the backend API, make sure CORS is enabled properly on the backend.
